@@ -1,35 +1,49 @@
-#include <iostream>
-#include "Types.h"
+#include "Geom.h"
+#include "Ops.h"
 
-polygon_t Box(double x1, double y1, double x2, double y2) {
-
-    polygon_t box_polygon;
-
-    boost::geometry::append(box_polygon.outer(), point_t(x1, y1));
-    boost::geometry::append(box_polygon.outer(), point_t(x1, y2));
-    boost::geometry::append(box_polygon.outer(), point_t(x2, y2));
-    boost::geometry::append(box_polygon.outer(), point_t(x2, y1));
-    boost::geometry::append(box_polygon.outer(), point_t(x1, y1));
-
-
-    return box_polygon;
+Box::Box(point_t center, double width, double height) {
+    initialize(center, width, height);
 }
 
-polygon_t Box(point_t center, double width, double height) {
+Box::Box(double x1, double y1, double x2, double y2) {
+    initialize(point_t(x1 + (x2 - x1) / 2, y1 + (y2 - y1) / 2), x2 - x1, y2 - y1);
+}
 
+Box::Box(multi_polygon_t mpoly) {
+    _poly = mpoly;
+}
+
+Box::Box(polygon_t poly) {
+    multi_polygon_t _poly;
+    _poly.push_back(poly);
+}
+
+const multi_polygon_t& Box::get_poly() const {
+    return _poly;
+}
+
+double Box::area() const {
+    return bg::area(_poly);
+}
+
+point_t Box::centroid() const {
+    point_t centroid;
+    bg::centroid(_poly, centroid);
+    return centroid;
+}
+
+Box Box::operator+(const Box& other) const {
+    return Box(poly_union(_poly, other._poly));
+}
+
+Box Box::operator-(const Box& other) const {
+    return Box(poly_difference(_poly, other._poly));
+}
+
+Box Box::operator*(const Box& other) const {
+    return Box(poly_intersection(_poly, other._poly));
+}
+
+void Box::initialize(point_t center, double width, double height) {
     polygon_t box_polygon;
-
-    double x1 = center.x() - width / 2;
-    double y1 = center.y() - height / 2;
-    double x2 = center.x() + width / 2;
-    double y2 = center.y() + height / 2;
-
-    boost::geometry::append(box_polygon.outer(), point_t(x1, y1));
-    boost::geometry::append(box_polygon.outer(), point_t(x1, y2));
-    boost::geometry::append(box_polygon.outer(), point_t(x2, y2));
-    boost::geometry::append(box_polygon.outer(), point_t(x2, y1));
-    boost::geometry::append(box_polygon.outer(), point_t(x1, y1));
-
-
-    return box_polygon;
 }

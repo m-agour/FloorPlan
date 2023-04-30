@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom.h" />
+    <ClInclude Include="Helpers.h" />
     <ClInclude Include="Ops.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Types.h" />
