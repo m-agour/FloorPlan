@@ -7,7 +7,7 @@ Room::Room(double center[2], double width, double height) {
 }
 
 Room::Room(double x1, double y1, double x2, double y2) {
-    initialize({ x1 + (x2 - x1) / 2, y1 + (y2 - y1) / 2 }, x2 - x1, y2 - y1);
+    initialize(x1, y1, x2, y2);
 }
 
 Room::Room(multi_polygon mpoly) {
@@ -23,10 +23,11 @@ const multi_polygon& Room::get_poly() const {
 }
 
 double Room::area() const {
-    return bg::area(_poly);
+    // get area using geos
+    return 
 }
 
-const double center() const {
+const double* center() {
     return _center;
 }
 
