@@ -1,3 +1,29 @@
+
+
+#include "Helpers.h"
+#include "Geom.h"
+
+
+
+
+
+
+
+
+int main() {
+
+	double time = getTime();
+
+	for (int i = 0; i < 1000000; i++) {
+		auto bos = createBox(0, 10, 0, 10);
+		//std::cout << bos->getGeometryType() << std::endl;
+	}
+
+	std::cout << getTime() - time << std::endl;
+	return 0;
+}
+
+
 /*#include <iostream>
 #include "Geom.h"
 #include "Ops.h"
@@ -29,26 +55,3 @@ int main() {
 }
 
 */
-
-#include "Helpers.h"
-#include "Geom.h"
-
-
-
-
-
-
-
-
-int main() {
-
-	double time = getTime();
-
-	for (int i = 0; i < 1000000; i++) {
-		auto bos = createBox(0, 10, 0, 10);
-		//std::cout << bos->getGeometryType() << std::endl;
-	}
-
-	std::cout << getTime() - time << std::endl;
-	return 0;
-}
