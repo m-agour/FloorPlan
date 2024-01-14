@@ -1,4 +1,3 @@
-Here is a draft README for this floor plan optimization repo:
 
 # Floorplan Optimizer
 
